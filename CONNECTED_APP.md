@@ -6,7 +6,7 @@ To be able to access SalesForce Data Cloud via the connector, you'll first need 
 
 Log in to Salesforce and go to setup
 
-![image](files/sfdc_byom/images/connected_app_01.png)
+![image](https://raw.githubusercontent.com/databricks-industry-solutions/sfdc-byom/main/images/connected_app_01.png)
 
 
 ### 2. Open up App Manager
