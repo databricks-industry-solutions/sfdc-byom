@@ -80,7 +80,7 @@ job_json = {
             {
                 "job_cluster_key": "sfdc_byom_cluster",
                 "notebook_task": {
-                    "notebook_path": f"02_Analysis"
+                    "notebook_path": f"02_ingest_data"
                 },
                 "task_key": "sfdc_byom_02",
                 "depends_on": [
