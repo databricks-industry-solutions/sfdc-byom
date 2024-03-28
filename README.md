@@ -4,22 +4,28 @@
 [![POC](https://img.shields.io/badge/POC-10_days-green?style=for-the-badge)](https://databricks.com/try-databricks)
 
 ## Business Problem
-<List of the business use case the solution accelerator address>
+
+You have data in both Databricks and Salesforce that you use to create machine learning models to help your customers and improve your business outcomes. Wouldn't it be nice if you could take advantage of the ease-of-use, simplicity, and power of Databricks for model training and serving to power ML related workloads on Salesforce? Now you can, with Salesforce BYOM for Databricks.
+
+Here are just a handful of the the many use cases you can unlock with Salesforce BYOM for Databricks:
+
+- Recommend products to customers based on what they've purchased or viewed in the past
+- Predict whether a given lead will convert to a sale
+- Determine likelihood of escalation of a use case
+- Predict whether a given customer is likely to churn
+- Forecast late payments
+- and so many more!
 
 ## Scope
 <How we expect the user to use this content>
 
 ___
-<john.doe@databricks.com>
+Corey Abshire <corey.abshire@databricks.com>
 
 ___
 
 
-IMAGE TO REFERENCE ARCHITECTURE
-
-___
-
-&copy; 2022 Databricks, Inc. All rights reserved. The source in this notebook is provided subject to the Databricks License [https://databricks.com/db-license-source].  All included or referenced third party libraries are subject to the licenses set forth below.
+&copy; 2024 Databricks, Inc. All rights reserved. The source in this notebook is provided subject to the Databricks License [https://databricks.com/db-license-source].  All included or referenced third party libraries are subject to the licenses set forth below.
 
 | library                                | description             | license    | source                                              |
 |----------------------------------------|-------------------------|------------|-----------------------------------------------------|

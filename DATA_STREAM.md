@@ -24,44 +24,44 @@ Here are the steps to create Data Streams from S3 in Salesforce:
 
 Log in to the org
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_01.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_01.png)
 
 
 Navigate to "Data Streams" and click "New"
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_02.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_02.png)
 
 
 Select "Amazon S3" and click on Next
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_03.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_03.png)
 
 
 Enter S3 bucket and file details
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_04.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_04.png)
 
 
 Click Next
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_05.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_05.png)
 
 
 Click Next
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_06.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_06.png)
 
 
 Click on Full Refresh
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_07.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_07.png)
 
 
 Select Frequency = "None"
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_08.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_08.png)
 
 
 Click Deploy to create data stream
 
-![image](https://github.com/databricks-industry-solutions/sfdc-byom/raw/main/images/create_data_stream_09.png)
+![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/create_data_stream_09.png)

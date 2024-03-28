@@ -26,8 +26,3 @@
 # MAGIC
 # MAGIC The dataset comprises 1 million records, each containing observations and information about potential predictors and the products historically purchased by customers. 
 # MAGIC
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
