@@ -62,6 +62,14 @@ from solacc.companion import NotebookSolutionCompanion
 
 # COMMAND ----------
 
+libraries = [
+    {
+        "pypi": {
+            "package": "salesforce-cdp-connector==1.0.13"
+        }
+    }
+]
+
 job_json = {
         "timeout_seconds": 28800,
         "max_concurrent_runs": 1,
@@ -75,6 +83,7 @@ job_json = {
                 "notebook_task": {
                     "notebook_path": f"01_introduction"
                 },
+                "libraries": libraries,
                 "task_key": "sfdc_byom_01"
             },
             {
@@ -83,6 +92,7 @@ job_json = {
                     "notebook_path": f"02_ingest_data"
                 },
                 "task_key": "sfdc_byom_02",
+                "libraries": libraries,
                 "depends_on": [
                     {
                         "task_key": "sfdc_byom_01"
@@ -95,6 +105,7 @@ job_json = {
                     "notebook_path": f"03_exploratory_data_analysis"
                 },
                 "task_key": "sfdc_byom_03",
+                "libraries": libraries,
                 "depends_on": [
                     {
                         "task_key": "sfdc_byom_02"
@@ -107,6 +118,7 @@ job_json = {
                     "notebook_path": f"04_feature_engineering"
                 },
                 "task_key": "sfdc_byom_04",
+                "libraries": libraries,
                 "depends_on": [
                     {
                         "task_key": "sfdc_byom_03"
@@ -119,6 +131,7 @@ job_json = {
                     "notebook_path": f"05_build_and_train_model"
                 },
                 "task_key": "sfdc_byom_05",
+                "libraries": libraries,
                 "depends_on": [
                     {
                         "task_key": "sfdc_byom_04"
@@ -156,4 +169,4 @@ dbutils.widgets.dropdown("run_job", "False", ["True", "False"])
 run_job = dbutils.widgets.get("run_job") == "True"
 nsc = NotebookSolutionCompanion()
 nsc.deploy_compute(job_json, run_job=run_job)
-_ = nsc.deploy_dbsql("./dashboards/IoT Streaming SA Anomaly Detection.dbdash", dbsql_config_table, spark)
+#_ = nsc.deploy_dbsql("./dashboards/IoT Streaming SA Anomaly Detection.dbdash", dbsql_config_table, spark)
