@@ -17,11 +17,22 @@ Here are just a handful of the the many use cases you can unlock with Salesforce
 - and so many more!
 
 ## Scope
-<How we expect the user to use this content>
+
+This accelerate will help you:
+
+- set up the required objects in Salesforce
+- query data from Salesforce to set up a feature table in Unity Catalog
+- build and train a model in Databricks using MLflow for experiment tracking
+- manage model lifecycle using Unity Catalog
+- deploy a model to a Databricks serving endpoint
+- configure the serving endpoint in Einstein Studio on Salesforce
+- score a dataset in Salesforce using the model
+
+You can use this as a starting point for building your own models against Salesforce data in Databricks!
 
 ___
 Corey Abshire <corey.abshire@databricks.com>
-
+Sharda Rao <sharda.rao@salesforce.com>
 ___
 
 
