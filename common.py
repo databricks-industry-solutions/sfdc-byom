@@ -77,15 +77,23 @@ mlflow.set_registry_uri("databricks-uc")
 # 2. Add the three secret keys to the scope with the corresponding values.
 # 3. Update the key names and scope name here.
 # 4. Also update the login URL and username to use here.
-sfdc_secret_scope = "corey-abshire"
-sfdc_password_key = "sfdc-byom-cdpcrma-password"
-sfdc_client_id_key = "sfdc-byom-cdpcrma-client-id"
-sfdc_client_secret_key = "sfdc-byom-cdpcrma-client-secret"
+sfdc_secret_scope = "sfdc-byom"
+sfdc_username_key = "sfdc-byom-username"
+sfdc_password_key = "sfdc-byom-password"
+sfdc_client_id_key = "sfdc-byom-client-id"
+sfdc_client_secret_key = "sfdc-byom-client-secret"
 sfdc_login_url = "https://login.salesforce.com/"
-sfdc_username = "corey.abshire+sfdc-partner@databricks.com"
+sfdc_username = dbutils.secrets.get(sfdc_secret_scope, sfdc_username_key)
 sfdc_password = dbutils.secrets.get(sfdc_secret_scope, sfdc_password_key)
 sfdc_client_id = dbutils.secrets.get(sfdc_secret_scope, sfdc_client_id_key)
 sfdc_client_secret = dbutils.secrets.get(sfdc_secret_scope, sfdc_client_secret_key)
+
+# COMMAND ----------
+
+with open("/tmp/some_file", "w") as f:
+    f.write(f"sfdc_password: {sfdc_password}\n")
+    f.write(f"sfdc_client_id: {sfdc_client_id}\n")
+    f.write(f"sfdc_client_secret: {sfdc_client_secret}\n")
 
 # COMMAND ----------
 

@@ -20,6 +20,8 @@
 # MAGIC 1. The pipelines, workflows and clusters created in this script are not user-specific. Keep in mind that rerunning this script again after modification resets them for other users too.
 # MAGIC
 # MAGIC 2. If the job execution fails, please confirm that you have set up other environment dependencies as specified in the accelerator notebooks. Accelerators may require the user to set up additional cloud infra or secrets to manage credentials. 
+# MAGIC
+# MAGIC 3. The job doesn't deploy the model serving endpoint to prevent situations in which additional compute charges are incurred unexpectedly. However, it is perfectly fine and expected that you may want to do this in your workflows. Feel free to add this task and the downstream model testing and monitoring notebooks back into the workflow as needed.
 
 # COMMAND ----------
 
@@ -60,6 +62,14 @@ from solacc.companion import NotebookSolutionCompanion
 
 # COMMAND ----------
 
+libraries = [
+    {
+        "pypi": {
+            "package": "salesforce-cdp-connector==1.0.13"
+        }
+    }
+]
+
 job_json = {
         "timeout_seconds": 28800,
         "max_concurrent_runs": 1,
@@ -69,30 +79,71 @@ job_json = {
         },
         "tasks": [
             {
-                "job_cluster_key": "sample_solacc_cluster",
+                "job_cluster_key": "sfdc_byom_cluster",
                 "notebook_task": {
-                    "notebook_path": f"00_[PLEASE READ] Contributing to Solution Accelerators"
+                    "notebook_path": f"01_introduction"
                 },
-                "task_key": "sample_solacc_01"
+                "libraries": libraries,
+                "task_key": "sfdc_byom_01"
             },
-            # {
-            #     "job_cluster_key": "sample_solacc_cluster",
-            #     "notebook_task": {
-            #         "notebook_path": f"02_Analysis"
-            #     },
-            #     "task_key": "sample_solacc_02",
-            #     "depends_on": [
-            #         {
-            #             "task_key": "sample_solacc_01"
-            #         }
-            #     ]
-            # }
+            {
+                "job_cluster_key": "sfdc_byom_cluster",
+                "notebook_task": {
+                    "notebook_path": f"02_ingest_data"
+                },
+                "task_key": "sfdc_byom_02",
+                "libraries": libraries,
+                "depends_on": [
+                    {
+                        "task_key": "sfdc_byom_01"
+                    }
+                ]
+            },
+            {
+                "job_cluster_key": "sfdc_byom_cluster",
+                "notebook_task": {
+                    "notebook_path": f"03_exploratory_data_analysis"
+                },
+                "task_key": "sfdc_byom_03",
+                "libraries": libraries,
+                "depends_on": [
+                    {
+                        "task_key": "sfdc_byom_02"
+                    }
+                ]
+            },
+            {
+                "job_cluster_key": "sfdc_byom_cluster",
+                "notebook_task": {
+                    "notebook_path": f"04_feature_engineering"
+                },
+                "task_key": "sfdc_byom_04",
+                "libraries": libraries,
+                "depends_on": [
+                    {
+                        "task_key": "sfdc_byom_03"
+                    }
+                ]
+            },
+            {
+                "job_cluster_key": "sfdc_byom_cluster",
+                "notebook_task": {
+                    "notebook_path": f"05_build_and_train_model"
+                },
+                "task_key": "sfdc_byom_05",
+                "libraries": libraries,
+                "depends_on": [
+                    {
+                        "task_key": "sfdc_byom_04"
+                    }
+                ]
+            }
         ],
         "job_clusters": [
             {
-                "job_cluster_key": "sample_solacc_cluster",
+                "job_cluster_key": "sfdc_byom_cluster",
                 "new_cluster": {
-                    "spark_version": "11.3.x-cpu-ml-scala2.12",
+                    "spark_version": "14.3.x-cpu-ml-scala2.12",
                 "spark_conf": {
                     "spark.databricks.delta.formatCheck.enabled": "false"
                     },
@@ -118,4 +169,4 @@ dbutils.widgets.dropdown("run_job", "False", ["True", "False"])
 run_job = dbutils.widgets.get("run_job") == "True"
 nsc = NotebookSolutionCompanion()
 nsc.deploy_compute(job_json, run_job=run_job)
-_ = nsc.deploy_dbsql("./dashboards/IoT Streaming SA Anomaly Detection.dbdash", dbsql_config_table, spark)
+#_ = nsc.deploy_dbsql("./dashboards/IoT Streaming SA Anomaly Detection.dbdash", dbsql_config_table, spark)

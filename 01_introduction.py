@@ -1,4 +1,9 @@
 # Databricks notebook source
+# MAGIC %md 
+# MAGIC You may find this series of notebooks at https://github.com/databricks-industry-solutions/sfdc-byom. For more information about this solution accelerator, visit https://www.databricks.com/solutions/accelerators/sfdc-byom.
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC # Set Up, Build, Train, and Deploy model in Databricks
 
@@ -20,9 +25,4 @@
 # MAGIC The objective of this exercise is to create a predictive model for identifying customer product interests. This model will then be utilized to generate personalized experiences and offers for customers. The development of the model is based on historical data, including customer demographics, marketing engagements, and purchase history.
 # MAGIC
 # MAGIC The dataset comprises 1 million records, each containing observations and information about potential predictors and the products historically purchased by customers. 
-# MAGIC
-
-# COMMAND ----------
-
-# MAGIC %md
 # MAGIC
