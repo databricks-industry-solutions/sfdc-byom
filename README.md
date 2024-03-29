@@ -18,7 +18,7 @@ Here are just a handful of the the many use cases you can unlock with Salesforce
 
 ## Scope
 
-This accelerate will help you:
+This solution accelerator will help you:
 
 - set up the required objects in Salesforce
 - query data from Salesforce to set up a feature table in Unity Catalog
