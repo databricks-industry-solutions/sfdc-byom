@@ -32,6 +32,7 @@ You can use this as a starting point for building your own models against Salesf
 
 ___
 Corey Abshire <corey.abshire@databricks.com>
+
 Sharda Rao <sharda.rao@salesforce.com>
 ___
 
