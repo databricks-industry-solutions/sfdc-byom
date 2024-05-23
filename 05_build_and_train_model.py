@@ -7,7 +7,7 @@
 # MAGIC %md
 # MAGIC # Build and Train Model
 # MAGIC
-# MAGIC Now for the fun part! Up to this point, we've loaded data from Salesforce in a way that it can be efficiently cleaned up and combined with additional data from all around our organization. Then we did exploratory data analysis and prepared features in our feature table. We're finally ready to put those features to use and train our machine learning model.
+# MAGIC Up to this point, we've loaded data from Salesforce in a way that it can be efficiently cleaned up and combined with additional data from all around our organization. Then we did exploratory data analysis and prepared features in our feature table. We're finally ready to put those features to use and train our machine learning model.
 # MAGIC
 # MAGIC Let's get to it!
 
@@ -156,7 +156,7 @@ training_set = fe.create_training_set(
 # MAGIC %md
 # MAGIC ## Load and split the training set
 # MAGIC
-# MAGIC With the training set object defined, we can now load the data and create a Pandas dataframe from it as we would for basically any other scikit-learn based model. Once we load up all the data, we can then split it into the normal train, test, validation splits and apply the transformation helper function we defined earlier.
+# MAGIC With the training set object defined, we can now load the data and create a Pandas dataframe from it as we would for basically any other scikit-learn based model. Once we load up all the data, we can then split it into the usual train, test, validation splits and apply the transformation helper function we defined earlier.
 
 # COMMAND ----------
 
@@ -225,7 +225,7 @@ from hyperopt.pyll import scope
 
 search_space = {
     'classifier__n_estimators': scope.int(hp.quniform('n_estimators', 100, 1001, 100)),
-    'classifier__max_depth': scope.int(hp.quniform('max_depth', 3, 9, 4)),
+    'classifier__max_depth': scope.int(hp.quniform('max_depth', 2, 6, 4)),
     'classifier__learning_rate': hp.loguniform('learning_rate', -2, 0),
     'classifier__subsample': hp.uniform('subsample', 0.8, 1.0),
     'classifier__colsample_bytree': hp.uniform('colsample_bytree', 0.8, 1.0),
@@ -301,7 +301,7 @@ with mlflow.start_run(run_name=f"{model_name}_static_params") as test_run:
 # MAGIC
 # MAGIC In addition to the search space, we also need to define our objective function for hyperopt. This is the function that hyperopt will probe using its best choices of hyperparameters from the search space we defined. In our case, we just need to train the model using the train split we carved out earlier and then evaluate the performance of that set of hyperparameters using some metric on our validation set. In our case, we'll use a weighted f1 score to cover the multiple classes we're defining for our recommender. Note that since hyperopt provides a minimization function, but for f1 score more is better, we need to multiply our metric by -1 before we return it.
 # MAGIC
-# MAGIC This is also where we first bump into MLflow. Here, we log a nested run to capture the combination of the set of parameters used for this particular sub-run along with the metrics it produced. However, we don't need to capture anything else, like the model itself. Once we have the best set of hyperparameters, we'll retrain over the full training set and evaluate that using our hold-out test set.
+# MAGIC This is also another place where we see usage of MLflow. Here, we log a nested run to capture the combination of the set of parameters used for this particular sub-run along with the metrics it produced. However, we don't need to capture anything else, like the model itself. Once we have the best set of hyperparameters, we'll retrain over the full training set and evaluate that using our hold-out test set.
 
 # COMMAND ----------
 
@@ -325,7 +325,7 @@ def objective_fn(params):
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC Also, as mentioned earlier we're going to run this hyperparameters sweep in parallel over the cluster. To do this, we'll need to tell hyperopt how many runs we want to do in parallel. While its technically possible to run your entire budget in one go, that typically won't yield the best performance outcome, as the algorithm hyperopt uses won't be able to focus its search space as the runs proceed. A decent trade-off and heuristic to use here is the square root of your total evaluation budget. Here, we'll just use a simple budget of 16 evals, which means according to the heuristic we can use parallelism of 4. This means 4 runs will happen in parallel, and hyperopt will have multiple opportunities to improve the search space over those runs.
+# MAGIC Also, as mentioned earlier we're going to run this hyperparameter sweep in parallel over the cluster. To do this, we'll need to tell hyperopt how many runs we want to do in parallel. While its technically possible to run your entire budget in one go, that typically won't yield the best performance outcome, as the algorithm hyperopt uses won't be able to focus its search space as the runs proceed. A decent trade-off and heuristic to use here is the square root of your total evaluation budget. Here, we'll just use a simple budget of 16 evals, which means according to the heuristic we can use parallelism of 4. This means 4 runs will happen in parallel, and hyperopt will have multiple opportunities to improve the search space over those runs.
 
 # COMMAND ----------
 
@@ -344,7 +344,7 @@ parallelism = 4  # e.g., int(math.sqrt(max_evals)) or sc.defaultParallelism
 # MAGIC %md
 # MAGIC ## Custom model wrapper
 # MAGIC
-# MAGIC Since our input data to our model serving endpoint will need some preprocessing applied before we feed it to our scikit-learn pipeline, we need to create a simple wrapper class to apply the same preprocessing as well as the postprocessing to the results. Autologging has already logged the model above as part of hyperparameter tuning, but here we'll log our wrapper model along with the parameters and metrics and this will be the one we'll deploy to the endpoint.
+# MAGIC Since our input data to our model serving endpoint will need some preprocessing applied before we feed it to our scikit-learn pipeline, we need to create a simple wrapper class to apply the same preprocessing as well as the postprocessing to the results. We'll also log our wrapper model along with the parameters and metrics and this will be the one we'll deploy to the endpoint.
 
 # COMMAND ----------
 
@@ -366,6 +366,8 @@ class ModelWrapper(mlflow.pyfunc.PythonModel):
 # MAGIC ## Tuning and training run
 # MAGIC
 # MAGIC Now that we have the wrapper defined, we run our distributed hyperparameter search and then log it explicitly to the MLflow tracking experiment as well as Unity Catalog as our model registry with a call to `log_model`. Along with the model artifact, we also log the metrics and parameters we used, the signature, and sample model input to help users of the model trace back our lineage and aide reproducibility and understanding.
+# MAGIC
+# MAGIC Note that for this example, we are logging with the pyfunc flavor directly, since all of our features will be getting passed in from Salesforce Data Cloud. If you need to take advantage of automated feature lookup from online tables, then you might also want to consider logging using the feature engineering client.
 
 # COMMAND ----------
 

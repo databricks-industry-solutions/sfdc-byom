@@ -48,7 +48,7 @@ databricks_token = notebook_context.apiToken().getOrElse(None)
 # MAGIC %md
 # MAGIC ## Configure serving endpoint
 # MAGIC
-# MAGIC The API call to create the serving endpoint needs to know the model to be served, and what we want to call this endpoint. In this case, we already looked up the model to be served, and we can derive the name of the endpoint from that information. We also need to tell it the workload size, and since its just a demo we'll turn on _scale to zero_ so we don't incur any costs when its not in use (Note: you'd typically want to turn this off for production deployments).
+# MAGIC The API call to create the serving endpoint needs to know the model to be served, and what we want to call this endpoint. In this case, we already looked up the model to be served, and we can derive the name of the endpoint from that information. We also need to tell it the workload size, and since its just a demo we'll turn on _scale to zero_ so we don't incur any costs when its not in use (Note: you'll want to turn this off for production deployments).
 # MAGIC
 # MAGIC We're also going to turn on inference tables to facilitate monitoring of our models request response pairs, which you can see in the `auto_capture_config` section below.
 
@@ -89,7 +89,7 @@ config = {
 # MAGIC %md
 # MAGIC ## Create or update the serving endpoint
 # MAGIC
-# MAGIC The code below looks a little fancy, but that's basically just because its handling the case where the endpoint already exists in case you are running this for the second time. At the end of the day, once you have the configuration specified, creating the endpoint itself just boils down to the one-liner to `POST` to the serving-endpoints API endpoint to initiate the deployment of the configured endpoint (or `PUT` in case you're updating it). It works basically the same through the UI.
+# MAGIC The code below may seem a little complicated, but that's basically just because its handling the case where the endpoint already exists in case you are running this for the second time. Once you have the configuration specified, creating the endpoint boils down to the one-liner to `POST` to the serving-endpoints API endpoint to initiate the deployment of the configured endpoint (or `PUT` in case you're updating it). It works basically the same through the UI.
 # MAGIC
 # MAGIC Once you execute this line, it'll probably take 5 to 10 minutes to actually bring up your model serving endpoint, so run the next cell and then go grab a fresh cup of coffee ☕️, and hopefully by the time your back the endpoint will be ready to go!
 
@@ -129,7 +129,7 @@ else:
 # MAGIC
 # MAGIC That's it really.
 # MAGIC
-# MAGIC The rest of the code here basically just polls the API to let us know when its ready (or, when necessary, to get some information to help with troubleshooting). You can either watch it here, or over in the endpoints UI for the endpoint we just created.
+# MAGIC The rest of the code here polls the API to let us know when its ready (or, when necessary, to get some information to help with troubleshooting). You can either watch it here, or over in the endpoints UI for the endpoint we just created.
 
 # COMMAND ----------
 
@@ -167,14 +167,4 @@ print(endpoint)
 # MAGIC %md
 # MAGIC ## Conclusion
 # MAGIC
-# MAGIC Congratulations! 🎉 
-# MAGIC
-# MAGIC Now your endpoint is ready to go! You could stop here if you want and continue on with the instructions we mentioned in the README for this repo to configure the endpoint integration on the Salesforce Data Cloud side.
-# MAGIC
-# MAGIC However, we've provided two additional notebooks to check out as well if your interested.
-# MAGIC
-# MAGIC - **[Test Model Inference]($./07_test_model_inference):** This notebook basically just lets you hit the model serving endpoint you just created via the REST API directly so you can test it out and experiment with it. This is particularly useful if for some reason you run into trouble when you try to set things up on the Salesforce side. So if you want to test it out before hand, you can go to that one next to try things out.
-# MAGIC
-# MAGIC - **[Monitoring]($./08_monitoring):** This notebook sets up a Lakehouse Monitoring pipeline based on the inference table we creater earlier. It also simulates getting labels down stream and shows you how to join those in, and then creates an inference table monitor based on that. It's a little more meaningful after you have some inferences to look at in the table, so it might be worthwhile to either test things out using the above notebook first and setting things up in Salesforce before you come back around to this one.
-# MAGIC
-# MAGIC Whichever way you go, thanks for making it this far! Great job! 🥳
+# MAGIC Congratulations! 🎉  Now your endpoint is ready to go! You could stop here if you want and continue on with the instructions we mentioned in the README for this repo to configure the endpoint integration on the Salesforce Data Cloud side. Thanks for making it this far! Great job! 🥳

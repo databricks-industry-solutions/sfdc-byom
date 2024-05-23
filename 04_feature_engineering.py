@@ -8,7 +8,9 @@
 # MAGIC
 # MAGIC # Feature Engineering
 # MAGIC
-# MAGIC Welcome to the Feature Engineering Notebook, a crucial part of the SalesForce Data Cloud to Databricks integration! This notebook plays a pivotal role in deriving meaningful features from raw data ingested from SalesForce, ensuring that our machine learning models are well-equipped to make accurate predictions and generate valuable insights. This step is also how we publish our features in a way that our colleagues can find and reuse them as well, using Unity Catalog as our Feature Store, in addition to providing useful capabilities for automated feature lookup and online feature serving.
+# MAGIC In the feature engineering notebook, we'd typically work towards deriving meaningful features from the data ingested from SalesForce, ensuring that our machine learning models are well-equipped to make accurate predictions and generate valuable insights. This step is also how we publish our features in a way that our colleagues can find and reuse them as well, using Unity Catalog as our Feature Store, in addition to providing useful capabilities for automated feature lookup and online feature serving.
+# MAGIC
+# MAGIC In this particular example, we're going to use the features for the most part as-is. However, it's still useful to know how to make use of the feature engineering API, as for your own project you will likely be deriving new features from the data.
 # MAGIC
 # MAGIC Let's get started!
 
