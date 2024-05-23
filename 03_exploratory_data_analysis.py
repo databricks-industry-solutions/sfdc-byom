@@ -43,13 +43,11 @@ display(df_spark)
 # MAGIC
 # MAGIC - **Automated statistical summary:** The data profiler generates descriptive statistics, such as mean, median, standard deviation, minimum, and maximum values for each numerical column in the dataset. This summary provides a quick overview of the dataset's central tendencies, dispersion, and shape.
 # MAGIC
-# MAGIC - **Distribution visualizations:** The profiler generates visualizations to display the distribution of numerical variables, helping to identify potential outliers, skewness, and other important trends. These visualizations can include histograms, box plots, and density plots, among others.
+# MAGIC - **Distribution visualizations:** The profiler generates visualizations to display the distribution of numerical variables, helping to identify potential outliers, skewness, and other important trends.
 # MAGIC
 # MAGIC - **Categorical variable analysis:** The profiler also analyzes categorical variables by counting the frequency of each category. This information helps to understand the distribution and prevalence of different categories and can be useful for feature engineering or stratified analysis.
 # MAGIC
 # MAGIC - **Missing values detection:** The profiler identifies missing values in the dataset and reports the percentage of missing values for each column. This information is essential for determining the appropriate handling of missing data, such as imputation or removal.
-# MAGIC
-# MAGIC - **Correlation analysis:** The data profiler can calculate the correlation between numerical variables to identify any significant relationships. This analysis helps to understand the interdependencies between variables and can guide feature selection or transformation.
 # MAGIC
 # MAGIC - **Easy integration with Databricks environment:** The data profiler is seamlessly integrated into the Databricks environment, allowing users to execute the profiling on large-scale datasets efficiently. It leverages distributed computing capabilities to handle big data effectively.
 # MAGIC
@@ -201,7 +199,7 @@ describe_continuous(df['tenure'])
 # MAGIC
 # MAGIC Another common technique that is helpful during exploratory data analysis is to view a correlation matrix of the different variables in the dataset. This can be useful for a variety of reasons:
 # MAGIC
-# MAGIC - **Identify Relationships:** Quickly identify and visualize the strength and direction of relationships between different variables imported from Salesforce Data Cloud. This is crucial for understanding how different Salesforce fields relate to each other, which can inform data cleaning, feature selection, and predictive modeling.
+# MAGIC - **Identify Relationships:** Quickly identify and visualize the strength and direction of relationships between different variables imported from Salesforce Data Cloud. This helps in understanding how different Salesforce fields relate to each other, which can inform data cleaning, feature selection, and predictive modeling.
 # MAGIC
 # MAGIC - **Data Cleaning and Preprocessing:** Spotting highly correlated variables can inform decisions about which variables to keep, combine, or discard, improving model performance and interpretation.
 # MAGIC

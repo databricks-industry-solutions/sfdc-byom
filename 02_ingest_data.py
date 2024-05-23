@@ -14,12 +14,12 @@
 # MAGIC By following this notebook, you will learn how to:
 # MAGIC
 # MAGIC - **Connect and Extract Data**: Establish a connection to Salesforce Data Cloud, enabling you to extract product interest data.
-# MAGIC - **Transform Data**: Employ advanced transformation techniques to transition the data from its raw form in the bronze layer to a refined, cleansed state in the silver layer. This process ensures that the data is optimized for analytics and machine learning applications.
-# MAGIC - **Load Data into Databricks**: Seamlessly load your transformed data into Databricks, preparing it for sophisticated analysis and insights discovery.
+# MAGIC - **Transform Data**: Employ transformation techniques to transition the data from its raw form in the bronze layer to a refined, cleansed state in the silver layer.
+# MAGIC - **Load Data into Databricks**: Load your transformed data into Databricks, making it available for analysis and discovery.
 # MAGIC
 # MAGIC ## Why This Matters
 # MAGIC
-# MAGIC In today's data-driven world, the ability to efficiently process and analyze data is paramount. This notebook empowers you to:
+# MAGIC In today's data-driven world, the ability to efficiently process and analyze data is paramount. This notebook helps you:
 # MAGIC
 # MAGIC - **Enhance Data Quality**: Through the transformation process, you will improve the quality of your data, making it more reliable for decision-making.
 # MAGIC - **Accelerate Time-to-Insight**: By streamlining the data ingestion process, you reduce the time from data collection to actionable insights, enabling faster decision-making.
@@ -44,7 +44,7 @@
 # MAGIC %md
 # MAGIC ## Set up Salesforce CDP Connection
 # MAGIC
-# MAGIC The first step towards data ingestion journey involves establishing a connection to the Salesforce Customer Data Platform (CDP). This connection is the bridge that allows us to access the product interest data stored within Salesforce Data Cloud. To achieve this, we leverage the `SalesforceCDPConnection` class, provided by the [Salesforce CDP Connection Python Library](https://github.com/forcedotcom/salesforce-cdp-connector). Below, we detail the process of initializing this connection, ensuring a secure and efficient link to your Salesforce data.
+# MAGIC The first step towards data ingestion involves establishing a connection to the Salesforce Customer Data Platform (CDP). This connection is the bridge that allows us to access the product interest data stored within Salesforce Data Cloud. To achieve this, we leverage the `SalesforceCDPConnection` class, provided by the [Salesforce CDP Connection Python Library](https://github.com/forcedotcom/salesforce-cdp-connector). Below, we detail the process of initializing this connection, ensuring a secure and efficient link to your Salesforce data.
 # MAGIC
 # MAGIC In this code snippet, we instantiate the `SalesforceCDPConnection` object with five parameters:
 # MAGIC
@@ -54,7 +54,7 @@
 # MAGIC - `sfdc_client_id`: The client ID provided when you register your application with Salesforce. It's part of the OAuth credentials needed to authorize your application to access Salesforce data on your behalf.
 # MAGIC - `sfdc_client_secret`: The client secret is another component of your OAuth credentials, working alongside the client ID to provide a secure authentication mechanism.
 # MAGIC
-# MAGIC These variables are already initialized in the `common` notebook, where they are either configured directly there, or if they're sensitive, read there using [Databricks secrets management](https://docs.databricks.com/en/security/secrets/index.html).
+# MAGIC These variables are already initialized in the `common` notebook, where they are configured there using [Databricks secrets management](https://docs.databricks.com/en/security/secrets/index.html).
 
 # COMMAND ----------
 
@@ -110,7 +110,7 @@ display(df_pandas)
 # MAGIC %md
 # MAGIC ## Transforming Data for Analysis
 # MAGIC
-# MAGIC Once the product interest data is retrieved into a pandas DataFrame, the next step is to convert this DataFrame into a Spark DataFrame and refine the column names for ease of analysis. This conversion leverages the Apache Spark framework within Databricks, allowing for scalable data processing and analysis.
+# MAGIC Once the product interest data is retrieved into a pandas DataFrame, the next step is to convert this DataFrame into a Spark DataFrame and refine the column names for ease of analysis. This conversion leverages the Apache Spark framework within Databricks, allowing for scalable data processing.
 # MAGIC
 # MAGIC This code snippet performs two key actions:
 # MAGIC 1. **Conversion to Spark DataFrame**: The `spark.createDataFrame(df_pandas)` command transforms the pandas DataFrame into a Spark DataFrame, enabling the utilization of Spark's distributed data processing capabilities.
@@ -169,7 +169,7 @@ display_table_link(catalog_name, schema_name, bronze_table_name)
 # MAGIC
 # MAGIC 1. **Basic Cleansing**: The operation `.na.drop()` is applied to the DataFrame, which removes any rows containing null or missing values. This step is crucial for ensuring the quality and reliability of the data by eliminating incomplete records that could potentially skew analysis results.
 # MAGIC
-# MAGIC 2. **Displaying the Cleansed Data**: After the cleansing process, the `display(product_interest_silver)` function is used to visually present the cleansed dataset. This allows for immediate verification of the data cleaning step, ensuring that the dataset now contains only complete and valid entries, ready for more sophisticated analysis or processing in the Silver layer.
+# MAGIC 2. **Displaying the Cleansed Data**: After the cleansing process, the `display(product_interest_silver)` function is used to visually present the cleansed dataset. This allows for immediate verification of the data cleaning step, ensuring that the dataset now contains only complete and valid entries, ready for more sophisticated analysis or processing.
 # MAGIC
 # MAGIC Your data cleansing steps are likely to be much more involved, and will be highly dependent on your use case. By loading the data from Salesforce in a raw fashion into the bronze layer, as you iterate on these cleansing steps you don't need to continually pull data back across connection to Salesforce.
 
@@ -220,13 +220,13 @@ silver_table_name = "product_interest_silver"
 # MAGIC %md
 # MAGIC ## Conclusion
 # MAGIC
-# MAGIC Congratulations on getting the data ingested from Salesforce Data Cloud! This is often one of the most challenging steps in the process for teams that are perhaps used to Databricks but new to Salesforce Data Cloud. Through this notebook, you have successfully navigated the process of connecting to Salesforce CDP, extracting product interest data, and performing essential transformations to prepare the data for advanced analysis. By persisting the data first in the bronze layer and then refining it for the silver layer, you've laid a solid foundation for insightful analytics and data-driven decision-making.
+# MAGIC Congratulations on getting the data ingested from Salesforce Data Cloud! This is often one of the most challenging steps in the process for teams that are perhaps used to Databricks but new to Salesforce Data Cloud. Through this notebook, you have successfully navigated the process of connecting to Salesforce CDP, extracting product interest data, and performed essential transformations to prepare the data for advanced analysis. By persisting the data first in the bronze layer and then refining it for the silver layer, you've laid a solid foundation for insightful analytics and data-driven decision-making.
 # MAGIC
 # MAGIC ### Key Takeaways
 # MAGIC
 # MAGIC - **Streamlined Data Ingestion**: You've seen firsthand how to efficiently extract data from Salesforce CDP using the Salesforce CDP Connection Python Library, simplifying the process of data retrieval.
 # MAGIC - **Data Transformation and Cleansing**: The transformation from the bronze to the silver layer (and in many cases a gold layer), including basic cleansing and column name refinement, ensures that the data is not only more accessible but also of higher quality.
-# MAGIC - **Scalable Data Storage**: By leveraging Databricks and Spark DataFrames, you have stored your data in a structured format that supports scalable analysis and processing within a data lake architecture.
+# MAGIC - **Scalable Data Storage**: By leveraging Databricks and [Delta Lake](https://docs.databricks.com/en/delta/index.html), you have stored your data in a structured format that supports scalable analysis and processing within a data lake architecture.
 # MAGIC
 # MAGIC ### Next Steps
 # MAGIC
