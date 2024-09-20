@@ -38,7 +38,7 @@ You should see a toast message that the end point was saved successfully
 ![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/deploy_model_07.png)
 
 
-### 8. Enter inference url from databrisck as well as request format as dataframe split
+### 8. Enter inference url from Databricks as well as request format as dataframe split
 
 ![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/deploy_model_08.png)
 
@@ -48,7 +48,7 @@ You should see a toast message that the end point was saved successfully
 ![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/deploy_model_09.png)
 
 
-### 10. Secret Key = "Bearer <<your personal access token from databricks>>"
+### 10. Secret Key = "Bearer <<your personal access token from Databricks>>"
 
 ![image](https://github.com/coreyabs-db/sfdc-byom-images/raw/main/images/deploy_model_10.png)
 
